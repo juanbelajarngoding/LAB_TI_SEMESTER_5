@@ -1,0 +1,41 @@
+?-
+    		window(title("Juan_Act2"), size(650,600),class(win_pertama)).
+		win_pertama(init) :-
+   		button(class(tombol_1), text("play"), pos(110,185), size(60,30)),
+		button(class(tombol_2), text("stop"), pos(359,180), size(180,30)).
+
+win_pertama(paint):-
+    %play
+    pen(50, rgb(128, 128, 128)),
+    line(100, 100, 100, 300),
+    line(100, 100, 200, 200),
+    line(200, 200, 100, 300),
+    %Start
+    pen(30, rgb(255, 0, 127)),
+    line(250, 100, 250, 300),
+    line(300, 100, 300, 300),
+    %Pause
+    pen(50, rgb(0, 0, 255)),
+    line(350, 100, 350, 300),
+    line(350, 100, 550, 100),
+    line(550, 100, 550, 300),
+    line(550, 300, 350, 300).
+
+tombol_1(press) :-
+    window(title("Juan_Act2"), size(600, 600), class(win_dua)).
+    update_window(_).
+
+win_dua(init) :-
+    GTimerset := settimer( 1, time_func), 
+    button(class(tombol_2), text("stop"), pos(359,180), size(180,30)).
+
+win_dua(paint) :- 
+    %stop
+    pen(4, rgb(0, 0, 255)), 
+    line(350, 100, 350, 300), 
+    line(350, 100, 550, 100), 
+    line(550, 100, 550, 300), 
+    line(550, 300, 350, 300).
+
+tombol_2(press) :-
+    killtimer(parent(), G_Timer).

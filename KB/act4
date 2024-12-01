@@ -1,0 +1,50 @@
+?-
+%G_XU:=0, G_YU:=0,
+window(title("Menu"), size(500,500), class(win_func)).
+
+win_func(init):-
+menu(pop_up, action(menu_pilihan), text("Pilihan")),
+menu(pop_up, action(menu_level), text("Level")),
+menu(normal, action(menu_tentang), text("About")).
+
+menu_pilihan(init):-
+menu(normal, action(mulai_game), text("Mulai")),
+menu(normal, action(menu_exit), text("Keluar")).
+
+mulai_game(press):-
+%var yang digunakan
+G_XU :=0, G_YU :=0,
+%window(G_key,_,win_ascii(_),"Karakter",100,50,500,500).
+window(title("Karakter"),size(500,500),class(win_ascii)).
+
+win_ascii(key_down(39,_)):-
+	pen(16,rgb(255,255,255)),
+	rect(40+G_XU,40+G_YU,70+G_XU,70+G_YU),
+	(G_XU=420 -> G_XU:=G_XU
+	else G_XU := G_XU+60),
+	pen(16,rgb(191,0,255)),
+	rect(40+G_XU,40+G_YU,70+G_XU,70+G_YU).
+
+win_ascii(key_down(37,_)):-
+	pen(16,rgb(255,255,255)),
+	rect(40+G_XU,40+G_YU,70+G_XU,70+G_YU),
+	(G_XU=0 -> G_XU:=G_XU
+	else G_XU := G_XU-60),
+	pen(16,rgb(255,215,0)),
+	rect(40+G_XU,40+G_YU,70+G_XU,70+G_YU).
+
+menu_exit(press):-
+close_window(_).
+
+win_func(close):-
+   not( yes_no("","Anda sudah lelah?", ?)).
+
+menu_level(init):-
+menu(normal, action(mudah), text("Amatiran")),
+menu(normal, action(normal), text("Normal")),
+menu(pop_up, action(menu_susah), text("Susah")).
+
+menu_susah(init):-
+menu(normal, action(biasa), text("susah biasa")),
+menu(normal, action(banget), text("susah banget")),
+menu(normal, action(sekali), text("susah sekali")).
